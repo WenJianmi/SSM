@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.ssm.dao.IOrderDao">
+	<insert id="saveOrder" parameterType="com.briup.ssm.common.bean.Order" >
+		<selectKey keyProperty="id" keyColumn="id" resultType="long" order="BEFORE">
+			select oi_seq.nextval from dual
+		</selectKey>
+		insert into order_info values(#{id},#{customer.id},#{orderDate},#{status},#{cost},#{payway})
+		</insert>
+	<insert id="saveLine" parameterType="com.briup.ssm.common.bean.Line">
+		<selectKey keyColumn="id" keyProperty="id" resultType="long" order="BEFORE">
+			select od_seq.nextval from dual
+		</selectKey>
+		insert into order_detail values(#{id},#{book.id},#{order.id},#{num})
+	</insert>
+	<resultMap id="OrderMapp" type="com.briup.ssm.common.bean.Order">
+		<id property="id" column="iid" />
+		<result property="orderDate" column="ordertime" />
+		<result property="cost" column="cost" />
+		<result property="status" column="staus" />
+		<result property="payway" column="payway"/>
+		<collection property="lines" javaType="com.briup.ssm.common.bean.Line">
+			<id property="id" column="did"/>
+			<result property="num" column="num"/>
+			<association property="book" javaType="com.briup.ssm.common.bean.Book">
+				<id property="id" column="bid"/>
+				<result property="name" column="name"/>
+				<result property="price" column="price"/>				
+			</association>
+		</collection>
+	</resultMap>
+	<select id="findOrderById" parameterType="long" resultMap="OrderMapp">
+		 select i.id iid,i.ordertime,i.cost,i.staus,i.payway,d.id did,d.num,b.id bid,b.name,b.price
+		 from order_info i,order_detail d,book b 
+		 where d.oid=i.id and d.bid=b.id and i.id=#{id}
+	</select>
+	
+	
+	<delete id="deleteLineByOid" parameterType="long">
+	delete from order_detail where oid=#{id}
+	</delete>
+	<delete id="deleteOrderById" parameterType="long">
+		delete from order_info where id=#{id}
+	</delete>
+</mapper>

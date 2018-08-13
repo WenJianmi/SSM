@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.ssm.dao.ICustomerDao">
+	<insert id="saveCustomer" parameterType="com.briup.ssm.common.bean.Customer">
+		<selectKey keyColumn="id" keyProperty="id" 
+		resultType="long" order="BEFORE">
+			select c_seq.nextval from dual
+		</selectKey>
+	insert into customer values(#{id},#{name},#{password},#{address},#{city},#{zip},#{telephone},#{email})
+	</insert>
+	<select id="findByName" parameterType="String" resultType="com.briup.ssm.common.bean.Customer">
+		select id,name,password,address,city,zip,phone as telephone ,email 
+		from customer where name=#{name}
+	</select>
+	<update id="updateCustomer" parameterType="com.briup.ssm.common.bean.Customer">
+	update customer set password=#{password},address=#{address},city=#{city},zip=#{zip},phone=#{telephone},email=#{email} where id=#{id}
+	</update>
+	<resultMap id="OrderMap" type="com.briup.ssm.common.bean.Order">
+		<result property="id" column="id" />
+		<result property="orderDate" column="ordertime" />
+		<result property="cost" column="cost" />
+		<result property="status" column="staus" />
+		<result property="payway" column="payway"/>
+		<association property="customer" javaType="com.briup.ssm.common.bean.Customer">
+			<result property="id" column="cid" />
+		</association>
+	</resultMap>
+	<select id="listAllOrder" parameterType="long" resultMap="OrderMap">
+		select * from order_info where cid=#{id}
+	</select>
+</mapper>			
