@@ -78,4 +78,13 @@ public class OrderServiceImpl implements IOrderService {
 		return orderById;
 	}
 
+	@Override
+	public void updateOrder(Order order) throws EstoreCommonException {
+		if (order==null) {
+			throw EstoreCommonException.getException(401);
+		}
+		orderDao.updateOrder(order);
+		
+	}
+
 }

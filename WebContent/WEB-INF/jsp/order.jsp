@@ -44,7 +44,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<td class=tablebody2 valign=middle align=left width="">&nbsp;&nbsp;${order.payway } </td>
 			<td class=tablebody1 valign=middle align=center width="">
 			<input type="button" value="删除" onclick="javascript:window.location='orderlist/deleteOrder/${order.id }';">&nbsp;
-			<input type="button" value="明细" onclick="javascript:window.location='orderlist/orderInfo/${order.id }';"> </td>
+			<input type="button" value="明细" onclick="javascript:window.location='orderlist/orderInfo/${order.id }';">&nbsp;
+			<input type="button" value="支付" onclick="javascript:window.location='alipay/${order.id }';"> </td>
 		</tr>
         </c:forEach>        
 <c:import url="footer.jsp"></c:import>

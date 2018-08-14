@@ -12,4 +12,5 @@ public interface IOrderService {
 	void saveOrder(Customer customer,Order order,Collection<Line> lines) throws EstoreCommonException;
 	void deleteOrder(Long id) throws EstoreCommonException;
 	Order findById(Long id) throws EstoreCommonException;
+	void updateOrder(Order order)throws EstoreCommonException;
 }

@@ -12,4 +12,5 @@ public interface IOrderDao  {
 	public Order findOrderById(Long id);
 	public void deleteOrderById(Long id);
 	public void deleteLineByOid(long oid);
+	public void updateOrder(Order order);
 }

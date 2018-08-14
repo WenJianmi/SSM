@@ -58,8 +58,6 @@ public class IndexController {
 	*/
 	@RequestMapping(value="logout")
 	public String logout(HttpSession session){
-		ShoppingCar shoppingcar  = (ShoppingCar) session.getAttribute("shoppingcar");
-		int size = shoppingcar.getLines().size();
 		session.invalidate();
 		return "redirect:index";
 	}

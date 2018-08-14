@@ -20,7 +20,7 @@
 		<result property="id" column="id" />
 		<result property="orderDate" column="ordertime" />
 		<result property="cost" column="cost" />
-		<result property="status" column="staus" />
+		<result property="status" column="status" />
 		<result property="payway" column="payway"/>
 		<association property="customer" javaType="com.briup.ssm.common.bean.Customer">
 			<result property="id" column="cid" />

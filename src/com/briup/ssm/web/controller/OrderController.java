@@ -75,6 +75,9 @@ public class OrderController {
 		try {
 			Customer customer = (Customer) session.getAttribute("customer");
 			List<Order> orders = customerservice.findOrdersByCid(customer.getId());
+			for (Order order : orders) {
+				System.out.println(order.getStatus());
+			}
 			session.setAttribute("orders", orders);
 			session.setAttribute("msg", "订单列表");
 			return "order";

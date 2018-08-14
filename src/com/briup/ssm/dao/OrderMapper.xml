@@ -18,7 +18,7 @@
 		<id property="id" column="iid" />
 		<result property="orderDate" column="ordertime" />
 		<result property="cost" column="cost" />
-		<result property="status" column="staus" />
+		<result property="status" column="status" />
 		<result property="payway" column="payway"/>
 		<collection property="lines" javaType="com.briup.ssm.common.bean.Line">
 			<id property="id" column="did"/>
@@ -31,7 +31,7 @@
 		</collection>
 	</resultMap>
 	<select id="findOrderById" parameterType="long" resultMap="OrderMapp">
-		 select i.id iid,i.ordertime,i.cost,i.staus,i.payway,d.id did,d.num,b.id bid,b.name,b.price
+		 select i.id iid,i.ordertime,i.cost,i.status,i.payway,d.id did,d.num,b.id bid,b.name,b.price
 		 from order_info i,order_detail d,book b 
 		 where d.oid=i.id and d.bid=b.id and i.id=#{id}
 	</select>
@@ -43,4 +43,7 @@
 	<delete id="deleteOrderById" parameterType="long">
 		delete from order_info where id=#{id}
 	</delete>
+	<update id="updateOrder" parameterType="com.briup.ssm.common.bean.Order" >
+		update order_info set status=#{status} where id=#{id}
+	</update>
 </mapper>

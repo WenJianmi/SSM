@@ -80,4 +80,5 @@ public class Order implements Serializable {
 	public void setPayway(String payway) {
 		this.payway = payway;
 	}
+	
 }
